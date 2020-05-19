@@ -9,9 +9,16 @@ public class OutputFile {
    List<String[]> dataLines = new ArrayList<>();
    File csvOutputFile;
 
-   public OutfileFile(String tab) {
+   public OutputFile(String tab) {
       tabNumber = tab;
       String fileName = "tab_" + tab + ".csv";
+
+      this.csvOutputFile = new File(fileName);
+   }
+
+   public OutputFile(int tab) {
+      tabNumber = String.valueOf(tab);
+      String fileName = "tab_" + tabNumber + ".csv";
 
       this.csvOutputFile = new File(fileName);
    }
@@ -25,7 +32,6 @@ public class OutputFile {
 
    private String convertToCSV(String[] data) {
       return Stream.of(data)
-        //.map(this::escapeSpecialCharacters)
         .collect(Collectors.joining(","));
-  }
+   }
 }
