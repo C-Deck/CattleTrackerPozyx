@@ -1,4 +1,4 @@
-# Pozyx-Java-MQTT
+# CattleTracker-Pozyx
 
 A basic way to connect to the Pozyx system and receive the data. It has it's own interface that we can track the tags in, but if we want to do more on the data it wouldn't work. With this, we can extract that data to do more with it.
 
