@@ -47,3 +47,5 @@
 *.zip
 *.tar.gz
 *.rar
+
+.vscode/
