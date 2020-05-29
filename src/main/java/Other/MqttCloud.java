@@ -1,7 +1,9 @@
+package Other;
+
 import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import structures.TagPosition;
+import dataClasses.TagPosition;
 
 import java.io.IOException;
 import java.util.Random;
@@ -48,7 +50,7 @@ public class MqttCloud implements MqttCallback {
     }
 
     @Override
-    public void parseMessage(String topic, MqttMessage message)
+    public void messageArrived(String topic, MqttMessage message)
             throws Exception, IOException {
 
         Gson gson = new Gson();
