@@ -10,8 +10,6 @@ class Point:
             self.y = 0
     
     def __eq__(self, other):
-        # Note: generally, floats should not be compared directly
-        # due to floating-point precision
         return (self.x == other.x) and (self.y == other.y)
 
     def __str__(self):
