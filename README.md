@@ -23,7 +23,7 @@ They are all broken up into subfolders. Each of them has their own README docume
 
 ### Gathering the data
 
-The subfolder for gathering data is [PozyxMQTT-Python](https://github.com/C-Deck/CattleTrackerPozyx/tree/master/PozyxMQTT-Python). There is also a Java version, but we will no longer be using that in order to keep everything linear. The rest of the work is in Python, so we are sticking to that.
+The subfolder for gathering data is [PozyxMQTT-Python](PozyxMQTT-Python/README.md). There is also a Java version, but we will no longer be using that in order to keep everything linear. The rest of the work is in Python, so we are sticking to that.
 
 The Pozyx system has a messaging protocol called MQTT that we are able to connect to in order to receive messages. As it gathers data, it sends out JSON (JavaScript Object Notation) values to anything connected to it through MQTT. Those values come out in the following format.
 
@@ -92,7 +92,7 @@ Using these values, we can extract data about the different cows that we are tra
 
 ### Build CSV Files
 
-The subfolder for building CSV files is [CSVGenerator](https://github.com/C-Deck/CattleTrackerPozyx/tree/master/CSVGenerator/README.md).
+The subfolder for building CSV files is [CSVGenerator](CSVGenerator/README.md).
 
 This is a program that files the JSON file created previously and creates a CSV file for each cow. The CSV file format is `tag, time, x, y`. For our purposes, this is all we need. The tag number is necessary later for the visualization.
 
@@ -104,6 +104,20 @@ This is a program that creates movement data and CSV files for a set number of c
 
 ### Visualization
 
-The subfolder for creating theoretical data is [Visualization](https://github.com/C-Deck/CattleTrackerPozyx/blob/master/Visualization/README.md).
+The subfolder for creating theoretical data is [Visualization](Visualization/README.md).
 
 This program uses Dash and Plotly in order to display the data. There is some setup involved that is described in the folders README. Using these tools, it creates a webpage displaying graphs and data about the movement of the cows. 
+
+## Reflection
+
+Overall, the outcome of this project is not quite what we would hope. There were many external factors that caused problems with the ability to work. Due to the coronavirus situation, we were not able to do any testing with the Pozyx devices.
+
+### Speed
+
+One of the major problems with this program is the speed. We are working with many libraries that we have no control over how they handle the data to make sure it is fast. When programming, there are small things that can affect how fast the program runs. When using external libraries, we have no control over these. 
+
+Another problem is that we are using Python. Python is an interpretted language which runs slow. Faster programming languages such as C or Java are compiled and run much faster. We would be better off developing in one of those in the future for more speed. The problem with those languages is that they don't have as many external libraries for us to use for data. We would have to write those on our own which would be a lot more work.
+
+### Precision
+
+With our data, it is difficult to be precise on whether or not the cows are grazing when they are at their location. Due to this, we will just have to assume that the cows prefer the plots that they have spent more time on. Another problem is that it is difficult to display which grass plot is which on our land.
