@@ -8,7 +8,9 @@ A basic way to connect to the Pozyx system and receive the data. It has it's own
 
 To run this project, you will need:
 
-* Python 3, Pozyx software, and Paho MQTT (We will install this)
+* Python 3
+* Pozyx software
+* Paho MQTT (We will install this)
 
 ### Installation
 
