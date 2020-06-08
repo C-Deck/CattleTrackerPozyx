@@ -28,11 +28,17 @@ Now you are good to go
 
 ## Running
 
-Simply double click on app.py and it will run. Afterwards, it will ask you the number of tags that we have data on. In order for this to work, you will need to move the `tag_.csv` files to the `csvs` folder in the same directory as `app.py`. Otherwise, it will try to open the files and fail. Furthermore, they all have to be named in that format with "tag" and the number of the tag following it.
+Simply double click on app.py and it will run if you are in windows. Otherwise, you must go to the directory in terminal and type `python3 app.py`. Afterwards, it will ask you the number of tags that we have data on. In order for this to work, you will need to move the `tag_.csv` files to the `csvs` folder in the same directory as `app.py`. Otherwise, it will try to open the files and fail. Furthermore, they all have to be named in that format with "tag" and the number of the tag following it.
 
 ## Implementation
 
-Our `app.py` is the main file were everything comes together. It combines everything from the data to the graphs and handles them all. 
+Our `app.py` is the main file were everything comes together. It combines everything from the data to the graphs and handles them all. In this file, there is a line that states
+
+```
+tagCount = 5
+```
+
+This value must be changed to the number of tags/csv files that you are using in order to get the data for all of them.
 
 ### Classes
 
