@@ -37,7 +37,9 @@
 *.zip
 *.tar.gz
 *.rar
-*.csv
 
+# Unneeded files
+*.csv
+*.pyc
+./__pycache__/
 .vscode/
-DataSimulator/Classes/__pycache__/

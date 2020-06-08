@@ -8,17 +8,24 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.figure_factory import create_2d_density
-from Helper.createFigure import getInitialData, getFrames, getAllInitialData, getAllFrames
+from Helper.createFigure import getInitialData, getFrames, getAllInitialData, getAllFrames, addTracesToFigure
+from Helper.statBuilder import generatePlotTimeTable, getPlotsWithTimes
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+"""
+-------------------------------------------------------------------------------
+----------------------------Global Variables Used------------------------------
+-------------------------------------------------------------------------------
+"""
 xMinMax = 27
 yMinMax = 69
+squareSize = 3
 
 colors = {
-    'background': '#111111',
+    'background': '#FFFFFF',
     'text': '#7FDBFF'
 }
 
@@ -26,70 +33,76 @@ colorscale = ['#7A4579', '#D56073', 'rgb(236,158,105)', (1, 1, 0.2), (0.98,0.98,
 
 tagCount = 5
 
+"""
+-------------------------------------------------------------------------------
+----------------------------CSV and dataFrame stuff----------------------------
+-------------------------------------------------------------------------------
+"""
 allFiles = []
 for tag in range(tagCount):
     allFiles.append("csvs/tag{0}.csv".format(tag+1))
 
-li = []
-li2 = []
+frameList = []
+MinuteFrameList = []
 
+# Combine all the frames into one
 for filename in allFiles:
     df = pd.read_csv(filename, index_col=None, header=0)
-    li.append(df)
+    frameList.append(df)
 
-for dframe in li:
+# Combine all the frames into one on each minute
+for dframe in frameList:
     df = dframe.loc[(dframe['time'] * 1.0) % 60 == 0]
-    li2.append(df)
+    MinuteFrameList.append(df)
 
-frame = pd.concat(li, axis=0, ignore_index=True)
+combinedFrame = pd.concat(frameList, axis=0, ignore_index=True)
 
-df = frame.loc[(frame['time'] * 1.0) % 60 == 0]
+df = combinedFrame.loc[(combinedFrame['time'] * 1.0) % 60 == 0]
 
-df2 = li[0].loc[(frame['time'] * 1.0) % 60 == 0]
+df2 = frameList[0].loc[(combinedFrame['time'] * 1.0) % 60 == 0]
 
-fig = px.scatter(frame, x="x", y="y", color="tag", title="Scatter attempt")
+plots = getPlotsWithTimes(frameList, xMinMax, yMinMax, squareSize, False)
 
-fig2 = create_2d_density(
-    frame.x, frame.y, colorscale=colorscale,
+
+"""
+-------------------------------------------------------------------------------
+--------------------------Creating the plotly figures--------------------------
+-------------------------------------------------------------------------------
+"""
+scatterPointFigure = px.scatter(combinedFrame, x="x", y="y", color="tag", title="Scatter attempt")
+
+heatmapFigure = create_2d_density(
+    combinedFrame.x, combinedFrame.y, colorscale=colorscale,
     hist_color='rgb(255, 237, 222)', point_size=1, title='2D Density Plot', 
-    height=600, width=1200
+    height=1200, width=1200
 )
 
-#fig3 = px.scatter(df, x="x", y="y", animation_frame="time", animation_group="tag", color="tag", hover_name="tag", size="time", size_max=1)
-fig3 = go.Figure(
-    data=getInitialData(df2),
+trackingFigureAnimated = go.Figure(
+    data=getAllInitialData(MinuteFrameList, len(MinuteFrameList)),
     layout=go.Layout(
-        xaxis=dict(range=[-xMinMax, xMinMax], autorange=False),
-        yaxis=dict(range=[-yMinMax, yMinMax], autorange=False),
-        title="Tag 1 Tracker",
-        updatemenus=[dict(
-            type="buttons",
-            buttons=[dict(label="Play",
-                          method="animate",
-                          args=[None])])],
-        height=1600,
-        width=1200
-    ),
-    frames=getFrames(df2, 12)
-)
-
-fig4 = go.Figure(
-    data=getAllInitialData(li2, len(li2)),
-    layout=go.Layout(
-        xaxis=dict(range=[-xMinMax, xMinMax], autorange=False),
-        yaxis=dict(range=[-yMinMax, yMinMax], autorange=False),
+        xaxis=dict(range=[-xMinMax - 10, xMinMax + 10], autorange=False),
+        yaxis=dict(range=[-yMinMax - 10, yMinMax + 10], autorange=False),
         title="All Tag Tracker",
         updatemenus=[dict(
             type="buttons",
             buttons=[dict(label="Play",
                           method="animate",
                           args=[None])])],
-        height=1600,
-        width=1200
+        height=800
     ),
-    frames=getAllFrames(li2, 12, li2[0]['x'].size)
+    frames=getAllFrames(MinuteFrameList, 12, MinuteFrameList[0]['x'].size)
 )
 
+# Add the Plots into the figures
+addTracesToFigure(heatmapFigure, plots)
+addTracesToFigure(trackingFigureAnimated, plots)
+
+
+"""
+-------------------------------------------------------------------------------
+----------------------------Dash Building the webpage--------------------------
+-------------------------------------------------------------------------------
+"""
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
     html.H1(
         children='Cattle Tracker',
@@ -99,8 +112,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
-    html.Div(children=['Tracking of the movements of the cows',
-            dcc.Graph(figure=fig)
+    html.Div(children=['Scatter Plot of all the points',
+            dcc.Graph(figure=scatterPointFigure)
         ],
 
         style={
@@ -108,16 +121,31 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'color': colors['text']
     }),
 
-    dcc.Graph(figure=fig2),
+    html.Div(children=['HeatMap',
+            dcc.Graph(figure=heatmapFigure)
+        ],
 
-    dcc.Graph(figure=fig3),
+        style={
+        'width': '100%',
+        'display': 'inline-block'
+    }),
 
-    dcc.Graph(figure=fig4)
+    html.Div(children=[generatePlotTimeTable(plots, tagCount)]),
+
+    html.Div(children=['Tracking of the movements of the cows',
+
+            dcc.Graph(figure=trackingFigureAnimated)
+        ],
+
+        style={
+        'textAlign': 'center',
+        'color': colors['text'],
+        'display': 'inline-block',
+        'width': '100%',
+        'height': '100%'
+    })
 ])
 
 
 if __name__ == '__main__':
-    #global tagCount
-    #print("Enter the number of tags: ")
-    #tagCount = input()
     app.run_server(debug=True)

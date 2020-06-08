@@ -65,7 +65,7 @@ def getAllInitialData(pandasFrame, length):
             marker={
                 "size": 6,
                     "line": {
-                    "width":2, 
+                    "width": 2, 
                     "color": 'DarkSlateGrey'
                 }
             },
@@ -87,11 +87,11 @@ def getCurrentData(allFrames, idx):
                 marker={
                     "size": 6,
                     "line": {
-                        "width":2, 
+                        "width": 2, 
                         "color": 'DarkSlateGrey'
                     }
                 },
-                name = "tag" + str(k)
+                name = "tag" + str(k + 1)
             )
         )
     
@@ -109,3 +109,24 @@ def getAllFrames(allFrames, increment, length):
 
 
     return list_of_frames
+
+
+def createTraces(plots):
+    allTraces = []
+
+    for plot in plots:
+        traces = plot.getTraces()
+        allTraces.append(traces)
+
+    return allTraces
+
+def addTracesToFigure(figure, plots):
+    traces = createTraces(plots)
+
+    for i in range(len(traces)):
+        figure.add_trace(go.Scatter(
+            x = traces[i]['x'],
+            y = traces[i]['y'],
+            showlegend = False,
+            name = traces[i]['name']
+        ))

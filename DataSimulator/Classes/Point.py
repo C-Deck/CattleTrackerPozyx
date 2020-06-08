@@ -1,6 +1,6 @@
 import random
 
-class Point: 
+class Point:
     def __init__(self, minMaxX, minMaxY, x = None, y = None):
         if(type(x)==int and type(y)==int):
             self.x = y
