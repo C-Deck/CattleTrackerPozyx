@@ -8,7 +8,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.figure_factory import create_2d_density
-from Helper.createFigure import getInitialData, getFrames, getAllInitialData, getAllFrames, addTracesToFigure
+from Helper.figureBuilder import getInitialData, getFrames, getAllInitialData, getAllFrames, addTracesToFigure
 from Helper.statBuilder import generatePlotTimeTable, getPlotsWithTimes
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']

@@ -59,7 +59,7 @@ def getPlotsWithTimes(tagFrameList, xMinMax, yMinMax, squareSize, doGetSubPlots)
 def getTimesForTag(tagNumber, plots):
     times = [0] * len(plots)
     for plot in plots:
-        times[plot.number] = plot.tagTimes[tagNumber]
+        times[plot.number - 1] = plot.tagTimes[tagNumber]
     
     return times
 
