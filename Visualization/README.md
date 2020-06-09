@@ -106,3 +106,23 @@ Here we go through every Tag object in the tag list, and go through each of its 
 This is where the graphs we use are dynamically created based on the data we get from the CSV files. The `addTracesToFigure` draws the edges of the plots (called traces in plotly). The `getAllFrames` function creates a list of "Frames". These Frames are what we use to follow where the tags each went. Each frame represents a time and where the tag was at during that time. These functions gather all of that in order to be used in a Plotly graph animation.
 
 In order to create each frame, for each time we get the point of each tag. Using that point, we create a list of Plotly `Scatter` dots that will represent the Tag at that point in time. That will then be that frame. `getAllFrames` does this for every time value.
+
+
+## What you will see
+
+This are some images of what you will see when you run the program.
+
+At the top we have a Scatter Plot:
+![scatterPlot](imgs/scatter.png)
+
+Next, we have a Heatmap:
+![densityPlot](imgs/density.png)
+
+Next, we have a Table of Times spent in each plot:
+![plotTimes](imgs/plotTimes.png)
+
+Next, we have a table and bar graph about the species:
+![species](imgs/speciesCharts.png)
+
+Finally, we have a Tracker that we can follow the locations over time:
+![tracker](imgs/tracker.png)
