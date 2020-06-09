@@ -130,7 +130,7 @@ def buildTagData(tags, plots):
                 if plot.isWithinPlot(point):
                     tag.plotTimes[plot.number - 1] += 5
                     plot.addTagTime(tag.number, 0)
-                for subplot in plot.subplots:
-                    if subplot.isWithinPlot(point):
-                        tag.subplotTimes[plot.number - 1][subplot.number - 1] += 5
-                        tag.speciesTimes[(subplot.number - 1) % tag.numSpecies] += 5
+                    for subplot in plot.subplots:
+                        if subplot.isWithinPlot(point):
+                            tag.subplotTimes[plot.number - 1][subplot.number - 1] += 5
+                            tag.speciesTimes[(subplot.number - 1) % tag.numSpecies] += 5

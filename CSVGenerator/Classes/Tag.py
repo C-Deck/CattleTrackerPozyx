@@ -21,10 +21,10 @@ class Tag:
         self.latestTime = tagValue.time
         self.currentTime += 5
 
-    def getValueString(self):
-        outputString = ""
+    def getValueArr(self):
+        outputString = []
         for val in self.values:
-            outputString = outputString + val.getStr()
+            outputString = outputString + val.getArr()
         return outputString
 
     def getLatestTime(self):

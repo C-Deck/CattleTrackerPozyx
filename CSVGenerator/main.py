@@ -1,18 +1,21 @@
 
 # Imports
 from Classes import Tag.Tag
+import csv
 
 # Helper Functions
 
 def createCSV(tag):
     filename = tag.getFilename()
     data = [["tag", "time", "x", "y"]]
-    data = "tag, time, x, y\n" + tag.getValueString()
-    file = open(fileName, 'wb')
-    for line in data:
-        file.write(line)
-        file.write('\n')
-    file.close()
+    data = data + tag.getValueArr()
+    csvfile = open(fileName, 'w', newline='')
+    # creating a csv writer object  
+    csvwriter = csv.writer(filename)  
+        
+    # writing the fields  
+    csvwriter.writerows(data)
+    csvfile.close()
 
 
 def checkAddValue(json, tag):

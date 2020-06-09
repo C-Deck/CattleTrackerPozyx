@@ -25,7 +25,7 @@ def isWithinPlot(point, plot):
     widthCount = number of subplots wide
     heightCount = number of subplots high
 """
-def getSubPlots(xVals, yVals, widthCount, heightCount):
+def getSubPlotsBottom(xVals, yVals, widthCount, heightCount):
     subplots = []
     subplotNumber = 0
     xIncrement = (xVals[1] - xVals[0]) / widthCount
