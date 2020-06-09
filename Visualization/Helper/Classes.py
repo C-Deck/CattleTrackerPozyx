@@ -91,3 +91,6 @@ class Tag:
 
         self.numSpecies = numSpecies
         self.speciesTimes = [0] * numSpecies
+
+    def printTag(self):
+        print("num: {0}, numberPlots: {1}, subplotsNum: {2}, speciesNum {3}".format(self.number, self.numberPlots, self.numberSubplots, self.numSpecies))

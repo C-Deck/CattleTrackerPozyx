@@ -7,19 +7,15 @@ topic = "tags"
 
 outputFile = "output.json"
 
-def write_to_file(data):
-    global outputFile
-    with open(outputFile, "a") as f:
-        f.write(data)
+jsonFile = open(outputFile, 'w')
 
 def on_connect(client, userdata, flags, rc):
     print(mqtt.connack_string(rc))
-    global outputFile
 
 # callback triggered by a new Pozyx data packet
 def on_message(client, userdata, msg):
     print("Positioning update:", msg.payload.decode())
-    write_to_file(msg.payload.decode())
+    jsonFile.write(msg.payload.decode())
 
 def on_subscribe(client, userdata, mid, granted_qos):
     print("Subscribed to topic!")

@@ -8,7 +8,13 @@ The Cal Poly College of Agriculture, Food, and Environmental Science (CAFES) rea
 
 ## Background
 
-Currently, cattle are grazing at two different ranches at Cal Poly. Every morning, dairy students are sent out over hundreds of acres to “check” on a total of 170 cattle. After discussing the current method for collecting data on the cattle with sponsor Marc Horney and Luke Jelmini (an employed student), it was discovered that contemporary methods are too unregimented, labor-intensive, and full of error. For example, Luke must individually count the cattle with their eyesight and record the data by hand, leading to miscounting and misconstrued data. Luke also explained that his tasks will vary completely upon the day, weather, cattle location, and cattle health. For example, rainy days are considerably more difficult to track the cattle due to poor visibility and dangerous conditions for the employees, leading to null data. Having this variation makes it extremely difficult or even impossible for him as an employee to get consistent data each shift. Once a worker arrives for his shift, either early in the morning or in the afternoon, he/she is assigned an area to check on and count cattle. Once he/she has covered the whole area, they return back to the dispatch point. According to an interviewed employee, total driving time to and from the fields takes on average 25 minutes and the total record keeping time of the cows takes on average 40 minutes.
+Currently, cattle are grazing at two different ranches at Cal Poly. Every morning, dairy students are sent out over hundreds of acres to “check” on a total of 170 cattle. It was discovered that contemporary methods are too unregimented, labor-intensive, and full of error. For example, a person must individually count the cattle with their eyesight and record the data by hand, leading to miscounting and misconstrued data. The tasks will vary completely upon the day, weather, cattle location, and cattle health. For example, rainy days are considerably more difficult to track the cattle due to poor visibility and dangerous conditions for the employees, leading to null data. Having this variation makes it extremely difficult or even impossible for him as an employee to get consistent data each shift. Once a worker arrives for his shift, either early in the morning or in the afternoon, he/she is assigned an area to check on and count cattle. Once he/she has covered the whole area, they return back to the dispatch point. According to an interviewed employee, total driving time to and from the fields takes on average 25 minutes and the total record keeping time of the cows takes on average 40 minutes.
+
+## Solution
+
+The solution to this problem is to implement the Pozyx system to handle the tracking. You set up boundary devices that keep track of the tag devices and give you location information. Using this, we collect the data about the cattle movement. Afterwards, we use that data to get statistics and visualize.
+
+In order to get it all to work, you must run three separate programs. They are all within this project and have been provided along with the source code. First, you run the program to gather the data from the Pozyx devices. This will output all the data to a file (`output.json`). Next, you must move that file to the folder `CSVGenerator`. When you run that program it will create the CSV files for the tags. Lastly, move those files to the Visualization/csvs folder. Once there, you run that program and it will display. There are some things you will need to do for setup that will be described later.
 
 ## Implementation
 
@@ -91,6 +97,8 @@ The Pozyx system has a messaging protocol called MQTT that we are able to connec
 ```
 
 Using these values, we can extract data about the different cows that we are tracking. For the purpose of this project, we will be using the time, x, and y values. Using these values, we can figure out where on the plot the cows are spending their time. The program for gathering the data will connect to the Pozyx system and create a JSON file containing all of the data which will be later turned into CSV files for each of the cows.
+
+We were not able to test with the Pozyx devices, but a member of another group also using the devices did and they got it to work. Our code is extremely similar, so it will work also.
 
 ### Build CSV Files
 

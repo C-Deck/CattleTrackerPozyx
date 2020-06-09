@@ -1,4 +1,4 @@
-from .TagValue import TagValue
+from Classes.TagValue import TagValue
 
 class Tag:
     def __init__(self, tagNumber):
@@ -24,7 +24,7 @@ class Tag:
     def getValueArr(self):
         outputString = []
         for val in self.values:
-            outputString = outputString + val.getArr()
+            outputString.append(val.getArr())
         return outputString
 
     def getLatestTime(self):

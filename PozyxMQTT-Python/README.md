@@ -40,7 +40,7 @@ Fur our purposes, the main callback that we use is the `on_message` callback. Th
 ```
 def on_message(client, userdata, msg):
     print("Positioning update:", msg.payload.decode())
-    write_to_file(msg.payload.decode())
+    jsonFile.write(msg.payload.decode())
 ```
 
-The `write_to_file` function takes data and appends it to the `output.json` file. If we wanted to change the way this works, the majority of the changes would be made in this function callback.
+In the beginning of the file, we open the file to write to. Then, as the call is called, we continually add to the file until we stop the program.

@@ -1,6 +1,7 @@
 import pandas as pd
 
 import plotly.graph_objects as go
+import dash_core_components as dcc
 
 """
     Returns initial data for one frame
@@ -85,7 +86,7 @@ def getCurrentData(allFrames, idx):
                 y = [yArray[idx]],
                 mode="markers",
                 marker={
-                    "size": 6,
+                    "size": 8,
                     "line": {
                         "width": 2, 
                         "color": 'DarkSlateGrey'
@@ -129,3 +130,39 @@ def addTracesToFigure(figure, plots):
             y = traces[i]['y'],
             name = traces[i]['name']
         ))
+
+def buildSpeciesBarChart(tags):
+    numberSpecies = tags[0].numSpecies
+
+    xValues = []
+    for i in range(numberSpecies):
+        xValues.append("Species " + str(i + 1))
+    
+    yValues = [0] * numberSpecies
+
+    # Go through each tag and add their time
+    for tag in tags:
+        for i in range(numberSpecies):
+            yValues[i] += tag.speciesTimes[i]
+
+    # Convert to minutes
+    for i in range(numberSpecies):
+        yValues[i] = yValues[i] / 60 
+
+    return dcc.Graph(
+            id='species-bar-chart',
+            figure={
+                'data': [
+                    {'x': xValues, 'y': yValues, 'type': 'bar'},
+                ],
+                'layout': {
+                    'xaxis': {
+                        'title': 'Species'
+                    },
+                    'yaxis': {
+                        'title': 'Time in minutes'
+                    },
+                    'title': 'Chart of Species Times'
+                }
+            }
+        )

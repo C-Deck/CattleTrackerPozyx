@@ -6,8 +6,9 @@ class Point:
             self.x = y
             self.y = y
         else:
-            self.x = 0
-            self.y = 0
+            randomStartPoints = self.getRandomStartPoint(minMaxX, minMaxY)
+            self.x = randomStartPoints[0]
+            self.y = randomStartPoints[1]
         self.minMaxX = minMaxX
         self.minMaxY = minMaxY
     
@@ -26,6 +27,12 @@ class Point:
             if self.checkMinMax(randomX, randomY):
                 self.x += randomX
                 self.y += randomY
+
+    def getRandomStartPoint(self, minMaxX, minMaxY):
+        secure_random = random.SystemRandom()
+        randomX = secure_random.uniform(-minMaxX, minMaxX)
+        randomY = secure_random.uniform(-minMaxY, minMaxY)
+        return [randomX, randomY]
     
     def getStr(self):
         return "{0}, {1}".format(self.x, self.y)

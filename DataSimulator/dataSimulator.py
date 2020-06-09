@@ -2,7 +2,7 @@ from Classes import Point as p
 import csv
 
 tagCount = 5
-numberOfPoints = 14400
+numberOfPoints = 1440
 secondIncrement = 5
 avgDistanceCovered = 1.5    # 1.5 meters meters over 5 seconds if the cow is moving
 minMaxX = 27                # The plot is 54 meters wide so 27 meters to the left and right

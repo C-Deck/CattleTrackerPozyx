@@ -105,6 +105,24 @@ def generateTagPlotTimeTable(tags):
         html.Tbody(rows)
     ])
 
+def generateTagSpeciesTimeTable(tags):
+    rows = []
+    for tag in tags:
+        row = [html.Td("Tag " + str(tag.number))]
+
+        times = tag.speciesTimes
+        for value in times:
+            row.append(html.Td(str(value) + " seconds"))
+
+        rows.append(html.Tr(row))
+
+    return html.Table([
+        html.Thead(
+            html.Tr([html.Th("Tag Number")] + [html.Th("Species " + (str(col + 1))) for col in range(tags[0].numSpecies)])
+        ),
+        html.Tbody(rows)
+    ])
+
 def generateSubplotTimeTable(plot, numberTags):
     return generatePlotTimeTable(plot.subplots, numberTags)
 
