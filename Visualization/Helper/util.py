@@ -19,7 +19,7 @@ def isWithinPlot(point, plot):
     return False
 
 """
-    Gives a dict of subplots
+    Gives a list of plots from top left moving left to right then down
     xVals = [xMin, xMax]
     yVals = [yMin, yMax]
     widthCount = number of subplots wide
@@ -43,5 +43,26 @@ def getSubPlots(xVals, yVals, widthCount, heightCount):
             subplots.append(plot)
         currentY = yVals[0]
         currentX += xIncrement
+
+    return subplots
+
+def getSubPlots(xVals, yVals, widthCount, heightCount):
+    subplots = []
+    subplotNumber = 0
+    xIncrement = (xVals[1] - xVals[0]) / widthCount
+    yIncrement = (yVals[1] - yVals[0]) / heightCount
+
+    currentX = xVals[0]
+    currentY = yVals[1]
+
+    for k in range(heightCount):
+        for i in range(widthCount):
+            subplotNumber += 1
+            points = [Point(currentX, currentY), Point(currentX + xIncrement, currentY), Point(currentX + xIncrement, currentY - yIncrement), Point(currentX, currentY - yIncrement)]
+            currentX += xIncrement
+            plot = Plot(subplotNumber, points)
+            subplots.append(plot)
+        currentX = xVals[0]
+        currentY -= yIncrement
 
     return subplots

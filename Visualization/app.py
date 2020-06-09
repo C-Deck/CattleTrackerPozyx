@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.figure_factory import create_2d_density
 from Helper.figureBuilder import getInitialData, getFrames, getAllInitialData, getAllFrames, addTracesToFigure
-from Helper.statBuilder import generatePlotTimeTable, getPlotsWithTimes
+from Helper.statBuilder import generateTagPlotTimeTable, getPlots, buildTags, buildTagData
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -61,7 +61,9 @@ df = combinedFrame.loc[(combinedFrame['time'] * 1.0) % 60 == 0]
 
 df2 = frameList[0].loc[(combinedFrame['time'] * 1.0) % 60 == 0]
 
-plots = getPlotsWithTimes(frameList, xMinMax, yMinMax, squareSize, False)
+plots = getPlots(xMinMax, yMinMax, squareSize, True)
+tags = buildTags(frameList, 9, 90, 15)
+buildTagData(tags, plots)
 
 
 """
@@ -130,7 +132,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         'display': 'inline-block'
     }),
 
-    html.Div(children=[generatePlotTimeTable(plots, tagCount)]),
+    html.Div(children=[generateTagPlotTimeTable(tags)]),
 
     html.Div(children=['Tracking of the movements of the cows',
 

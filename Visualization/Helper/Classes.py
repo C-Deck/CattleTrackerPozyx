@@ -1,4 +1,5 @@
 import Helper.util as UTIL
+from numpy import array
 
 class Plot:
     def __init__(self, number, points):
@@ -40,6 +41,9 @@ class Plot:
         self.tagTimes[tag] = time
         self.numberTags += 1
 
+    def addToTagTime(self, tag, time):
+        self.tagTimes[tag] += time
+
     def getTraces(self):
         xTrace = []
         yTrace = []
@@ -73,3 +77,17 @@ class Point:
 
     def __str__(self):
         return "x: {0}, y: {1}".format(self.x, self.y)
+
+class Tag:
+    def __init__(self, number, frame, numberPlots, numberSubplots, numSpecies):
+        self.number = number
+        self.frame = frame
+
+        self.numberPlots = numberPlots
+        self.plotTimes = [0] * numberPlots
+
+        self.numberSubplots = numberSubplots
+        self.subplotTimes = [[0] * numberSubplots] * numberPlots
+
+        self.numSpecies = numSpecies
+        self.speciesTimes = [0] * numSpecies

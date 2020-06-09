@@ -115,7 +115,6 @@ def createTraces(plots):
     allTraces = []
 
     for plot in plots:
-        plot.printPlot()
         traces = plot.getTraces()
         allTraces.append(traces)
 
@@ -123,12 +122,10 @@ def createTraces(plots):
 
 def addTracesToFigure(figure, plots):
     traces = createTraces(plots)
-    print(traces)
 
     for i in range(len(traces)):
         figure.add_trace(go.Scatter(
             x = traces[i]['x'],
             y = traces[i]['y'],
-            showlegend = False,
             name = traces[i]['name']
         ))
