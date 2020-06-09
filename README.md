@@ -23,7 +23,9 @@ They are all broken up into subfolders. Each of them has their own README docume
 
 ### Gathering the data
 
-The subfolder for gathering data is [PozyxMQTT-Python](PozyxMQTT-Python/README.md). There is also a Java version, but we will no longer be using that in order to keep everything linear. The rest of the work is in Python, so we are sticking to that.
+The subfolder for gathering data is [PozyxMQTT-Python](PozyxMQTT-Python/README.md). (Click link to go to PozyxMQTT-Python Document)
+
+There is also a Java version with a document, but we will no longer be using that in order to keep everything linear. The rest of the work is in Python, so we are sticking to that.
 
 The Pozyx system has a messaging protocol called MQTT that we are able to connect to in order to receive messages. As it gathers data, it sends out JSON (JavaScript Object Notation) values to anything connected to it through MQTT. Those values come out in the following format.
 
@@ -92,19 +94,19 @@ Using these values, we can extract data about the different cows that we are tra
 
 ### Build CSV Files
 
-The subfolder for building CSV files is [CSVGenerator](CSVGenerator/README.md).
+The subfolder for building CSV files is [CSVGenerator](CSVGenerator/README.md). (Click link to go to CSVGenerator Document)
 
 This is a program that files the JSON file created previously and creates a CSV file for each cow. The CSV file format is `tag, time, x, y`. For our purposes, this is all we need. The tag number is necessary later for the visualization.
 
 ### Theoretical Data
 
-The subfolder for creating theoretical data is [DataSimulator](DataSimulator/README.md).
+The subfolder for creating theoretical data is [DataSimulator](DataSimulator/README.md). (Click link to go to DataSimulator Document)
 
 This is a program that creates movement data and CSV files for a set number of cows. In order to develop the visualization, data is needed to test it. This program creates that data. It creates a fake cow and has it move within a constrained field. As it moves (or doesn't), the program records that and eventually outputs all of that data into a CSV file. 
 
 ### Visualization
 
-The subfolder for creating theoretical data is [Visualization](Visualization/README.md).
+The subfolder for creating theoretical data is [Visualization](Visualization/README.md). (Click link to go to Visualization Document)
 
 This program uses Dash and Plotly in order to display the data. There is some setup involved that is described in the folders README. Using these tools, it creates a webpage displaying graphs and data about the movement of the cows. 
 
