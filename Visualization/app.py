@@ -136,14 +136,14 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
 
     html.Div(children=['Table of Tag times per each plot',
         generateTagPlotTimeTable(tags)
-    ]),
+    ], style={'padding': 40}),
 
     html.Div(children=['Table of Tag times per each species',
 
         generateTagSpeciesTimeTable(tags),
 
         buildSpeciesBarChart(tags)
-    ]),
+    ], style={'padding': 40}),
 
     html.Div(children=['Tracking of the movements of the cows',
 
