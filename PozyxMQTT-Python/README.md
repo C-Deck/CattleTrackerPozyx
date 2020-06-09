@@ -22,4 +22,25 @@ Paho MQTT for Python is now installed.
 
 ## Running the Project
 
-Once you have Pozyx running and connected to your device, navigate to the python file. Simply click on main.py and windows will launch the program in the background. When you are finished, simply close the running window.
+Once you have Pozyx running and connected to your device, navigate to the python file. Simply click on main.py and windows will launch the program in the background. When you are finished, simply close the running window or `ctrl+c` which also ends the program.
+
+## Implementation
+
+When connecting through MQTT there are a set of callbacks that you can set. Each callback is a function that is called when a certain event happens. In the bottom of the code, we set the callbacks to our values.
+
+```
+client.on_connect = on_connect
+client.on_message = on_message
+client.on_subscribe = on_subscribe
+client.on_disconnect = on_disconnect
+```
+
+Fur our purposes, the main callback that we use is the `on_message` callback. This function gets called every time the Pozyx devices send data through the MQTT connection. Our function takes the data that is sent and writes it to our json file.
+
+```
+def on_message(client, userdata, msg):
+    print("Positioning update:", msg.payload.decode())
+    write_to_file(msg.payload.decode())
+```
+
+The `write_to_file` function takes data and appends it to the `output.json` file. If we wanted to change the way this works, the majority of the changes would be made in this function callback.
